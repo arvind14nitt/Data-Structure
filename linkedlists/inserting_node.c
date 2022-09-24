@@ -28,6 +28,27 @@ struct node* create_node(int data)
    return new_node;
 }
 
+//Delete a particular node from the Linked List
+void deleteNode(struct node** head, int node_data)
+{
+    struct node* temp, *prev_node;
+    temp = *head;//temp will now hold the address of first node
+    prev_node = temp;
+    //Iterate towards the node, find its previous node
+    while(temp)
+    {
+       if(temp->data == node_data)
+       {
+	  prev_node->next = temp->next;
+          free(temp);
+	  break;
+       }
+       prev_node = temp;
+       temp = temp->next;
+    }
+
+}
+
 void insertAtHead(int data, struct node** head)
 {
    struct node * new_node = create_node(data);
@@ -91,6 +112,9 @@ int main()
    int key = 3;
    data = 99;
    insertAtIndex(head, key, data);/*0->1->2->3->99->4->5->6->NULL */
+   printList(head);
+
+   deleteNode(&head, 99);
    printList(head);
    return 0;
 }
